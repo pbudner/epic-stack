@@ -16,7 +16,7 @@ The user can then enter the code or click the link to verify their email address
 which takes them through the onboarding flow which will allow them to set their
 username and password.
 
-The password is stored using the [bcrypt](https://npm.im/bcrypt) algorithm.
+The password is hashed using SHA512 and stored using the [bcrypt](https://npm.im/bcrypt) algorithm.
 
 ## Provider authentication
 

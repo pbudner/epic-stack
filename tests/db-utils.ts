@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker'
 import { type PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import { UniqueEnforcer } from 'enforce-unique'
+import { createHash } from "crypto";
 
 const uniqueUsernameEnforcer = new UniqueEnforcer()
 
@@ -33,7 +34,7 @@ export function createUser() {
 
 export function createPassword(password: string = faker.internet.password()) {
 	return {
-		hash: bcrypt.hashSync(password, 10),
+		hash: bcrypt.hashSync(createHash("sha512").update(password).digest("hex"), 10),
 	}
 }
 

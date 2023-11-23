@@ -8,6 +8,7 @@ import { prisma } from './db.server.ts'
 import { combineHeaders, downloadFile } from './misc.tsx'
 import { type ProviderUser } from './providers/provider.ts'
 import { authSessionStorage } from './session.server.ts'
+import { createHash } from "crypto";
 
 export const SESSION_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 30
 export const getSessionExpirationDate = () =>
@@ -209,7 +210,7 @@ export async function logout(
 }
 
 export async function getPasswordHash(password: string) {
-	const hash = await bcrypt.hash(password, 10)
+	const hash = await bcrypt.hash(createHash("sha512").update(password).digest("hex"), 10)
 	return hash
 }
 
